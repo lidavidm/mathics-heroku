@@ -1,0 +1,10 @@
+#!/home/lidavidm/Code/mathics-basha/venv/bin/python2.7
+# EASY-INSTALL-ENTRY-SCRIPT: 'Mathics==0.6.0rc1','console_scripts','mathics'
+__requires__ = 'Mathics==0.6.0rc1'
+import sys
+from pkg_resources import load_entry_point
+
+if __name__ == '__main__':
+    sys.exit(
+        load_entry_point('Mathics==0.6.0rc1', 'console_scripts', 'mathics')()
+    )

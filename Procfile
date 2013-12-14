@@ -1,0 +1,1 @@
+web: python2 ./mathics/server.py -e

@@ -1,0 +1,26 @@
+#head,
+#menu {
+	display: none;
+}
+
+#footer {
+	display: none;
+}
+
+#welcome {
+  display: none;
+}
+
+#document {
+	position: static;
+	overflow: visible;
+}
+
+li.request {
+  display: none;
+}
+
+span.move,
+span.delete {
+	display: none;
+}

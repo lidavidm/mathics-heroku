@@ -1,0 +1,11 @@
+Metadata-Version: 1.0
+Name: Mathics
+Version: 0.6.0rc1
+Summary: A general-purpose computer algebra system.
+Home-page: http://www.mathics.org/
+Author: Jan Poeschko
+Author-email: jan@poeschko.com
+License: GPL
+Description: UNKNOWN
+Keywords: computer algebra system mathics mathematica sage sympy
+Platform: UNKNOWN

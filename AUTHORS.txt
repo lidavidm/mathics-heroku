@@ -1,0 +1,30 @@
+Mathics was originally created by:
+
+- Jan Pöschko (poeschko)
+
+Mathics is currently maintained by:
+
+- Angus Griffith (sn6uv)
+
+Additional contributions were made by:
+
+- Chong Jiang (cjiang)
+- Marek Šuppa (mrshu)
+- lanyjie
+- freshwater
+- proxy-sander
+- Ben Jones (bnjones)
+
+Thanks to the authors of all projects that are used in Mathics:
+- Django
+- MathJax
+- Prototype
+- Python
+- scripaculous
+- PLY
+- colorama
+- SymPy
+- Three.js
+- interruptingcow
+- dateutil
+- colorama
