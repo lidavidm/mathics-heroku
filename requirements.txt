@@ -1,6 +1,5 @@
 Django==1.6.1
 ## !! Could not determine repository location
-Mathics==0.6.0rc1
 argparse==1.2.1
 colorama==0.2.7
 dj-database-url==0.2.2
