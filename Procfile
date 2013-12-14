@@ -1,1 +1,1 @@
-web: python2 ./mathics/server.py -e
+web: python2 ./mathics/server.py -e -p $PORT
