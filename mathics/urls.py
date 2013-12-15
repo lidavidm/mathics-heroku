@@ -21,6 +21,9 @@ u"""
 from django.conf.urls import *
 
 from django.conf import settings
+from django.contrib import admin
+
+admin.autodiscover()
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -34,6 +37,7 @@ urlpatterns = patterns(
     (r'^media/(?P<path>.*)$', 'django.views.static.serve', {
         'document_root': settings.MEDIA_ROOT, 'show_indexes': False}),
     (r'^', include('mathics.web.urls')),
+    (r'^admin/', include(admin.site.urls)),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs'
     # to INSTALLED_APPS to enable admin documentation:

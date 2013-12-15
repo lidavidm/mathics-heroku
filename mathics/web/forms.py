@@ -39,12 +39,13 @@ class AjaxForm(forms.Form):
 class LoginForm(AjaxForm):
     email = forms.EmailField(max_length=80)
     password = forms.CharField(
-        required=False, max_length=40, widget=forms.PasswordInput,
+        required=True, max_length=40, widget=forms.PasswordInput,
         help_text=(
-            u'<p class="helptext">Leave this field empty '
-            u"if you don't have an account yet,\n"
-            u"or if you have forgotten your pass&shy;word.\n"
-            u"A new password will be sent to your e-mail address.</p>")
+            u"""
+            <p class="helptext">If you don't have an account yet, enter your
+            email and desired password and an account will be made.</p>
+            """
+        )
     )
 
 

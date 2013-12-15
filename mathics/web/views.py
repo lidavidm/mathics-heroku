@@ -201,31 +201,21 @@ def login(request):
     if form.is_valid():
         email = form.cleaned_data['email']
         password = form.cleaned_data['password']
-        if password:
-            user = auth.authenticate(username=email, password=password)
+        if User.objects.filter(email=email).count():
+            user = auth.authenticate(username=email, email=email, password=password)
             if user is None:
                 general_errors = [u"Invalid username and/or password."]
             else:
                 result = 'ok'
                 auth.login(request, user)
         else:
-            password = nicepass()
-            try:
-                user = User.objects.get(username=email)
-                result = 'reset'
-                email_user(
-                    user, "Your password at mathics.net",
-                    (u"""You have reset your password at mathics.net.\n
-Your password is: %s\n\nYours,\nThe Mathics team""") % password)
-            except User.DoesNotExist:
-                user = User(username=email, email=email)
-                result = 'created'
-                email_user(
-                    user, "New account at mathics.net",
-                    u"""Welcome to mathics.net!\n
-Your password is: %s\n\nYours,\nThe Mathics team""" % password)
+            user = User(username=email, email=email)
             user.set_password(password)
             user.save()
+            user = auth.authenticate(username=email, password=password)
+            assert user
+            result = 'ok'
+            auth.login(request, user)
 
     return JsonResponse({
         'result': result,

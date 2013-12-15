@@ -260,7 +260,9 @@ class Eigenvectors(Builtin):
     """
     <dl>
     <dt>'Eigenvectors[$m$]'
-        <dd>computes the eigenvectors of the matrix $m$.
+        <dd>computes the bases of the eigenvectors of the
+        matrix $m$. Note that this function breaks from Mathematica's
+        definition as it excludes the zero vector.
     </dl>
 
     >> Eigenvectors[{{1, 1, 0}, {1, 0, 1}, {0, 1, 1}}]
@@ -311,7 +313,4 @@ class Eigenvectors(Builtin):
 
             # Add the vectors to results
             result.extend(vects)
-        print(result)
-        result.extend([Expression('List', *([0] * matrix.rows))] * (matrix.rows - len(result)))
-        print(result)
         return Expression('List', *result)

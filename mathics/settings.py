@@ -71,7 +71,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
 
-REQUIRE_LOGIN = False
+REQUIRE_LOGIN = True
 
 SERVER_EMAIL = 'mathics@localhost'
 
@@ -126,6 +126,7 @@ SECRET_KEY = 'uvbhuiasaeaph6Duh)r@3ex1i@et=0j4h(!p4@!r6s-=a_ev*e'
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
 
@@ -139,6 +140,10 @@ TEMPLATE_DIRS = (
     ROOT_DIR + 'web/templates/',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+)
+
 AUTHENTICATION_BACKENDS = (
     'mathics.web.authentication.EmailModelBackend',
 )
@@ -148,5 +153,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
+    'django.contrib.admin',
+    'django.contrib.messages',
     'mathics.web',
 )
