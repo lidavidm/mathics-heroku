@@ -1,13 +1,13 @@
 function grayOut(vis, options) {
   // Pass true to gray out screen, false to ungray
   // options are optional.  This is a JSON object with the following (optional) properties
-  // opacity:0-100         // Lower number = less grayout higher = more of a blackout 
+  // opacity:0-100         // Lower number = less grayout higher = more of a blackout
   // zindex: #             // HTML elements with a higher zindex appear on top of the gray out
   // bgcolor: (#xxxxxx)    // Standard RGB Hex color code
   // grayOut(true, {'zindex':'50', 'bgcolor':'#0000FF', 'opacity':'70'});
   // Because options is JSON opacity/zindex/bgcolor are all optional and can appear
   // in any order.  Pass only the properties you need to set.
-  var options = options || {}; 
+  var options = options || {};
   var zindex = options.zindex || 50;
   var opacity = options.opacity || 70;
   var opaque = (opacity / 100);
@@ -23,8 +23,8 @@ function grayOut(vis, options) {
     dark = tnode;
   }
   if (vis) {
-    dark.style.zIndex = zindex;        
-    dark.style.backgroundColor = bgcolor;  
+    dark.style.zIndex = zindex;
+    dark.style.backgroundColor = bgcolor;
     dark.setOpacity(opaque);
     if (navigator.userAgent.indexOf('Konqueror') == -1)
     	// don't use dark in Konqueror - opacity doesn't seem to work...
@@ -44,7 +44,7 @@ function showPopup(element, options) {
 	// to fix IE SELECT z-index bug, see http://drupal.org/node/84608
 	var frameContainer = new Element('div', {'class': 'popupFrameContainer'});
 	var frame = new Element('iframe', {'class': 'popupFrame'});
-	element = $(element).show();
+	Effect.Appear(element, { duration: 0.3 });
 	div.appendChild(element);
 	container.appendChild(div);
 	Element.insert(body, {'bottom': container});
@@ -55,7 +55,7 @@ function showPopup(element, options) {
 		Element.insert(body, {'bottom': frameContainer});
 	grayOut(true, {zindex: 9});
 	frame.scrollIntoView();
-	
+
 	var submit = element.select('input.submit, button.submit')[0];
 	var onSubmit = function(event) {
 		if (event.keyCode == Event.KEY_RETURN) {
@@ -64,7 +64,7 @@ function showPopup(element, options) {
 	}.bindAsEventListener(body);
 	if (submit && submit.onclick)
 		$(document).observe('keydown', onSubmit);
-	
+
 	var cancel = element.select('input.cancel, button.cancel')[0];
 	var onCancel = function(event) {
 		if (event.keyCode == Event.KEY_ESC) {
@@ -73,13 +73,13 @@ function showPopup(element, options) {
 	}.bindAsEventListener(body);
 	if (cancel && cancel.onclick)
 		$(document).observe('keydown', onCancel);
-	
+
 	var input = element.select('input')[0];
 	if (input)
 		input.activate();
-	
+
 	popup = [[container, frameContainer], options, onSubmit, onCancel];
-	
+
 	return popup;
 }
 
@@ -88,16 +88,16 @@ function hidePopup() {
 	var options = popup[1];
 	var onSubmit = popup[2];
 	var onCancel = popup[3];
-	
+
 	containers.each(function(item) {
 		item.select('input, textarea, button').invoke('blur');
-		item.hide();
+		Effect.Fade(item, { duration: 0.3 });
 	});
-	
+
 	grayOut(false);
 	$(document).stopObserving('keydown', onSubmit);
 	$(document).stopObserving('keydown', onCancel);
-	
+
 	popup = null;
 }
 
@@ -117,7 +117,7 @@ function dialogNo() {
 function showDialog(title, text, yesCaption, noCaption, yesCallback, noCallback) {
 	if (!noCallback)
 		noCallback = Prototype.emptyFunction;
-	
+
 	var dialog = $('dialog');
 	dialog.select('h1')[0].setText(title);
 	dialog.select('p')[0].setText(text);
@@ -125,9 +125,9 @@ function showDialog(title, text, yesCaption, noCaption, yesCallback, noCallback)
 	dialog.select('input.cancel')[0].value = noCaption;
 	dialogYesCallback = yesCallback;
 	dialogNoCallback = noCallback;
-	
+
 	dialogPopup = showPopup(dialog);
-	
+
 	return dialogPopup;
 }
 
