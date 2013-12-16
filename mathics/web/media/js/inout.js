@@ -115,7 +115,6 @@ function cancelExport() {
 function cancelOpen() {
 	hidePopup();
 }
-
 function save(overwrite) {
 	if (!overwrite)
 		overwrite = '';
@@ -270,3 +269,10 @@ function showGallery() {
 	  'Graphics[Table[{EdgeForm[{GrayLevel[0, 0.5]}], Hue[(-11+q+10r)/72, 1, 1, 0.6], Disk[(8-r){Cos[2Pi q/12], Sin [2Pi q/12]}, (8-r)/3]}, {r, 6}, {q, 12}]]'
 	]);
 }
+
+$(document).observe('dom:loaded', function() {
+    console.log('test')
+    window.onbeforeunload = function() {
+        return "Do you want to leave? You will lose unsaved work!";
+    };
+});
