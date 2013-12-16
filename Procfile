@@ -1,1 +1,1 @@
-web: python2 ./mathics/server.py -e -p $PORT
+web: gunicorn mathics.wsgi
