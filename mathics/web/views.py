@@ -94,7 +94,7 @@ def error_500_view(request):
     })))
 
 
-def query(request):
+def _query(request):
     input = request.POST.get('query', '')
     if settings.DEBUG and not input:
         input = request.GET.get('query', '')
@@ -115,6 +115,8 @@ def query(request):
     try:
         evaluation = Evaluation(
             input, definitions, timeout=settings.TIMEOUT, format='xml')
+    except Timeout:
+        raise
     except Exception, exc:
         if settings.DEBUG and settings.DISPLAY_EXCEPTIONS:
             evaluation = Evaluation()
@@ -137,6 +139,19 @@ def query(request):
         query_log.save()
 
     return JsonResponse(result)
+
+import interruptingcow
+from mathics.core.expression import Symbol
+class Timeout(Exception): pass
+def query(request):
+    try:
+        with interruptingcow.timeout(30, Timeout):
+            return _query(request)
+    except Timeout:
+        return JsonResponse({
+            'results': [{"line": 0, "result": "Calculation took too long.", "out": []}]
+        })
+
 
 # taken from http://code.activestate.com/recipes/410076/
 
